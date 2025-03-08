@@ -9,6 +9,7 @@ app = FastAPI()
 app.include_router(auth_router, prefix="/auth", tags=["authentication"])
 app.include_router(files_router, prefix="/files", tags=["files"])
 
+
 # Test route to check if the app is running
 @app.get("/")
 def read_root():

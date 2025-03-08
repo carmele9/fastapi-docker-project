@@ -7,14 +7,14 @@ services:
     env_file:
       - .env
     volumes:
-      - .:/fastapi-backend
-    command: uvicorn main:app --host 0.0.0.0 --port 8000 --log-level error
+      - .:/fastapi-backend  # Map the project directory to /fastapi-backend inside the container
+    command: uvicorn app.main:app --host 0.0.0.0 --port 8000 --log-level error
 
   format-code:
     build: .
     container_name: fastapi-format-code
     volumes:
-      - .:/app
-    working_dir: /app
-    entrypoint: sh -c "black --config .black . && ruff check --fix"
+      - .:/fastapi-backend  # Same as above, map to /fastapi-backend inside the container
+    working_dir: /fastapi-backend  # Ensure the working directory is set to the project root inside the container
     command: sh -c "black --config .black . && ruff check --fix"
+
